@@ -20,7 +20,7 @@
 
 [//]: # (  </a>)
 
-<h3 align="center">NFT Minter Boilerplate</h3>
+<h3 align="center">Celo React Boilerplate</h3>
 
 </div>
 
@@ -38,7 +38,7 @@ You will need node and yarn installed.
 
 ### Installation
 
-Step-by-step guide to running this NFT minter locally;
+Step-by-step guide to running this Celo React boilerplate locally;
 
 1. Clone the repo
 
@@ -73,9 +73,9 @@ Step-by-step guide to running this NFT minter locally;
 
 ### Smart-Contract-Deployment
 
-Step-by-step guide to redeploying the NFT smart contract using your address to enable you mint NFTs.
+Step-by-step guide to redeploying smart contract using your address to enable you interact with it.
 
-1. Update the contracts/MyNFT.sol file with your smart contract
+1. Update the contracts/MyContract.sol file with your smart contract
    
    
 2. Compile the smart contract
