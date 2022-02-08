@@ -1,22 +1,22 @@
-import logo from './logo.svg';
+import {useContractKit} from "@celo-tools/use-contractkit"
+import Cover from "./components/Cover";
+import Counter from "./components/Counter";
+
 import './App.css';
 import "@celo-tools/use-contractkit/lib/styles.css";
 import "react-toastify/dist/ReactToastify.min.css";
 
-function App() {
+const App = () => {
+    const {address} = useContractKit()
+
     return (
         <div className="App">
             <header className="App-header">
-
-                <img src={logo} className="App-logo" alt="logo" />
-                <p>
-                   NFT Minter Boilerplate
-                </p>
-
-                <p>
-                    Lets get started!
-                </p>
-
+                {address ?
+                    <Counter/>
+                    :
+                    <Cover/>
+                }
 
             </header>
         </div>

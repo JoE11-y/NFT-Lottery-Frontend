@@ -2,7 +2,7 @@
 // ################################# NFT SMART CONTRACT GOES HERE ######################################
 pragma solidity ^0.8.2;
 
-contract MyNFT {
+contract MyContract {
     uint public count;
 
     // Function to get the current count
