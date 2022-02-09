@@ -1,6 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import {ToastContainer} from 'react-toastify';
+import React from "react";
+import PropTypes from "prop-types";
+import { ToastContainer } from "react-toastify";
 
 const Notification = () => (
   <ToastContainer
@@ -35,7 +35,7 @@ const Props = {
 };
 
 const DefaultProps = {
-  text: '',
+  text: "",
 };
 
 NotificationSuccess.propTypes = Props;
