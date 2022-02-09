@@ -32,7 +32,7 @@ function storeContractData(contract) {
 
   fs.writeFileSync(
     contractsDir + "/MyContractAddress.json",
-    JSON.stringify({ MyNFT: contract.address }, undefined, 2)
+    JSON.stringify({ MyContract: contract.address }, undefined, 2)
   );
 
   const MyContractArtifact = artifacts.readArtifactSync("MyContract");
