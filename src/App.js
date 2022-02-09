@@ -3,9 +3,8 @@ import Cover from "./components/Cover";
 import Counter from "./components/Counter";
 
 import './App.css';
-import "react-toastify/dist/ReactToastify.min.css";
 
-const App = () => {
+const App =  function AppWrapper() {
     const {address} = useContractKit()
 
     return (
