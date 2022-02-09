@@ -1,3 +1,3 @@
-export * from './useDappContract';
-export * from './useBalance';
-export * from './useContract';
+export * from "./useCounterContract";
+export * from "./useBalance";
+export * from "./useContract";
