@@ -9,7 +9,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import '@celo-tools/use-contractkit/lib/styles.css';
 
 ReactDOM.render(
   <React.StrictMode>

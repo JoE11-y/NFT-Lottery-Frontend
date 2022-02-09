@@ -3,7 +3,6 @@ import Cover from "./components/Cover";
 import Counter from "./components/Counter";
 
 import './App.css';
-import "@celo-tools/use-contractkit/lib/styles.css";
 import "react-toastify/dist/ReactToastify.min.css";
 
 const App = () => {
