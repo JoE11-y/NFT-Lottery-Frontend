@@ -26,7 +26,7 @@ const Counter =() => {
     }
     return(
 
-        <Card bg={"black"} className="text-center" style={{ width: '50%' }}>
+        <Card bg={"black"} className="text-center" style={{ width: '40%' }}>
             <Card.Header>
                 <Wallet
                     address={address}
