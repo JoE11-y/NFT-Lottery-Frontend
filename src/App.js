@@ -1,3 +1,4 @@
+import React from "react";
 import {useContractKit} from "@celo-tools/use-contractkit"
 import Cover from "./components/Cover";
 import Counter from "./components/Counter";
