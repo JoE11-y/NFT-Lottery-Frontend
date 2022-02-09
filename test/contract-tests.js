@@ -1,3 +1,4 @@
+// TODO: Tests need to be adjusted to the counter contract.
 const {expect} = require("chai");
 const {ethers} = require("hardhat");
 
