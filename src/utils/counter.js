@@ -1,19 +1,19 @@
-export const increaseCount = async (minterContract, performActions) => {
+export const increaseCount = async (counterContract, performActions) => {
   try {
     await performActions(async (kit) => {
       const { defaultAccount } = kit;
-      await minterContract.methods.inc().send({ from: defaultAccount });
+      await counterContract.methods.inc().send({ from: defaultAccount });
     });
   } catch (e) {
     console.log({ e });
   }
 };
 
-export const decreaseCount = async (minterContract, performActions) => {
+export const decreaseCount = async (counterContract, performActions) => {
   try {
     await performActions(async (kit) => {
       const { defaultAccount } = kit;
-      await minterContract.methods.dec().send({ from: defaultAccount });
+      await counterContract.methods.dec().send({ from: defaultAccount });
     });
   } catch (e) {
     console.log({ e });
