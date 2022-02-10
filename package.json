@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@celo-tools/use-contractkit": "^2.1.4",
+    "@celo-tools/use-contractkit": "3.0.0-beta2",
+    "@celo/contractkit": "^1.5.2",
     "@metamask/jazzicon": "^2.0.0",
     "@openzeppelin/contracts": "^4.4.1",
     "@popperjs/core": "^2.10.2",
