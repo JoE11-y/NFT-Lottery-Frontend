@@ -1,8 +1,7 @@
 // SPDX-License-Identifier: MIT
-// ################################# NFT SMART CONTRACT GOES HERE ######################################
-pragma solidity ^0.8.2;
+pragma solidity ^0.8.4;
 
-contract MyContract {
+contract Counter {
     uint public count;
 
     // Function to get the current count

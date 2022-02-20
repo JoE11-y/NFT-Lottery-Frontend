@@ -1,7 +1,7 @@
 import { useContract } from "./useContract";
-import MyContract from "../contracts/MyContract.json";
-import MyContractAddress from "../contracts/MyContractAddress.json";
+import Counter from "../contracts/Counter.json";
+import CounterAddress from "../contracts/MyContractAddress.json";
 
 // export interface for smart contract
 export const useCounterContract = () =>
-  useContract(MyContract.abi, MyContractAddress.address);
+  useContract(Counter.abi, CounterAddress.address);
