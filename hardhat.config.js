@@ -32,15 +32,16 @@ const getEnv = (variable, optional = false) => {
 /**
  * @type import('hardhat/config').HardhatUserConfig
  */
-module.exports = {
+ module.exports = {
+  solidity: "0.8.4",
   networks: {
     alfajores: {
       url: "https://alfajores-forno.celo-testnet.org",
       accounts: {
-        mnemonic: MNEMONIC,
-        path: "m/44'/52752'/0'/0"
+        mnemonic: process.env.MNEMONIC,
+        path: "m/44'/60'/0'/0",
       },
-    }
+      chainId: 44787,
+    },
   },
-  solidity: "0.8.4",
 };
