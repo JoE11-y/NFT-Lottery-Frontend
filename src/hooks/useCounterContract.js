@@ -1,6 +1,6 @@
 import { useContract } from "./useContract";
 import Counter from "../contracts/Counter.json";
-import CounterAddress from "../contracts/MyContractAddress.json";
+import CounterAddress from "../contracts/CounterAddress.json";
 
 // export interface for smart contract
 export const useCounterContract = () =>
