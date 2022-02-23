@@ -54,7 +54,11 @@ npx hardhat test
 MNEMONIC = "...";
 ```
 
-4. Deploy the smart contract to the Celo testnet
+In this case, we are using a mnemonic from an account created on Metamask. You can copy it from your Metamask account settings. An account created on the Celo extension wallet will not work.
+
+You can find more details about the whole process in the Dacade [NFT Contract Development with Hardhat](https://hackmd.io/exuZTH2hTqKytn2vxgDmcg) learning module. It will also show you how to get testnet tokens for your account so you can deploy your smart contract in the next step.
+
+4. Deploy the smart contract to the Celo testnet Aljafores
 
 ```sh
    npx hardhat run --network alfajores scripts/deploy.js
@@ -64,6 +68,11 @@ This command will update the src/contract files with the deployed smart contract
 
 5. Run the project
 
+If you have a Metamask wallet installed that is connected to the Celo network, Alfajores, and have Celo testnet tokens, you can test the boilerplate now.
+
 ```sh
    npm start
 ```
+
+The boilerplate should now behave like this:
+![](https://raw.githubusercontent.com/dacadeorg/celo-development-201/main/content/gifs/boilerplate_demo.gif)
