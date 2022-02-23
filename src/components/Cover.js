@@ -13,9 +13,6 @@ const Cover = ({ connect }) => {
     <>
       <img src={logo} className="App-logo" alt="logo" />
       <p>Celo React Boilerplate</p>
-
-      <p>Lets get started!</p>
-
       <Button variant="primary" onClick={connectWallet}>
         Connect Wallet
       </Button>
