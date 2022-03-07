@@ -2,16 +2,16 @@
 This repository contains a simple React boilerplate for Celo projects.
 
 ## 1. Tech Stack
-This Boilerplate uses the following tech stack:
+This boilerplate uses the following tech stack:
 - [React](https://reactjs.org/) - A JavaScript library for building user interfaces.
 - [use-Contractkit](contractkit
 ) - A frontend library for interacting with the Celo blockchain.
-- [Hardhat](https://hardhat.org/) - A tool for building and deploying smart contracts.
+- [Hardhat](https://hardhat.org/) - A tool for writing and deploying smart contracts.
 - [Bootstrap](https://getbootstrap.com/) - A CSS framework that provides responsive, mobile-first layouts.
 
 ## 2. Quick Start
 
-To get this project up running locally, follow these simple example steps:
+To get this project up running locally, follow these simple steps:
 
 ### 2.1 Clone the repository:
 
@@ -38,17 +38,19 @@ npm start
 ```
 
 To properly test the dapp you will need to have a Celo wallet with testnet tokens.
-This learning module [NFT Contract Development with Hardhat](https://hackmd.io/exuZTH2hTqKytn2vxgDmcg) will walk you through that.
+This learning module [NFT Contract Development with Hardhat](https://hackmd.io/exuZTH2hTqKytn2vxgDmcg) will walk you through the process of creating a Metamask wallet and claiming Alfajores testnet tokens.
 
-The boilerplate should now behave like this:
+The boilerplate should behave like this:
 ![](https://raw.githubusercontent.com/dacadeorg/celo-development-201/main/content/gifs/boilerplate_demo.gif)
 
-## 3. Smart-Contract-Deployment
+## 3. Smart-Contract Deployment
 
 You can use your own smart contract that the dapp will interact with by following the steps below:
 
 ### 3.1 Add a new smart contract
-Update the contracts/MyContract.sol file with your smart contract
+Update the contracts/MyContract.sol file with your solidity code. 
+
+Notice that if you change the contract and file name you will also need to update the deploy script that we will use later.
 
 ### 3.2 Compile the smart contract
 
