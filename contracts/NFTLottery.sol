@@ -10,12 +10,12 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 contract NFTLottery is ERC721, ERC721Enumerable, Ownable {
     using Counters for Counters.Counter;
 
-    uint256 public lotteryID;
+    uint256 private lotteryID;
     Counters.Counter private _tokenIdCounter;
 
     uint256 internal immutable lotteryInterval = 2 days;
     uint256 internal ticketPrice;
-    address public operatorAddress;
+    address internal operatorAddress;
     address internal cUsdTokenAddress =
         0x874069Fa1Eb16D44d622F2e0Ca25eeA172369bC1;
 
@@ -73,6 +73,14 @@ contract NFTLottery is ERC721, ERC721Enumerable, Ownable {
     function setOperator(address _operatorAddress) external onlyOwner {
         require(_operatorAddress != address(0), "Address must be valid");
         operatorAddress = _operatorAddress;
+    }
+
+    function getOperator() external view returns (address) {
+        return operatorAddress;
+    }
+
+    function getLotteryID() external view returns (uint256) {
+        return lotteryID;
     }
 
     // Starts Lottery
