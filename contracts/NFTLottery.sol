@@ -5,6 +5,7 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 contract NFTLottery is ERC721, ERC721Enumerable, Ownable {
     using Counters for Counters.Counter;
@@ -12,9 +13,11 @@ contract NFTLottery is ERC721, ERC721Enumerable, Ownable {
     uint256 public lotteryID;
     Counters.Counter private _tokenIdCounter;
 
-    uint256 internal immutable lotteryInterval = 2 * 1 days;
+    uint256 internal immutable lotteryInterval = 2 days;
     uint256 internal ticketPrice;
     address public operatorAddress;
+    address internal cUsdTokenAddress =
+        0x874069Fa1Eb16D44d622F2e0Ca25eeA172369bC1;
 
     enum State {
         IDLE,
@@ -63,6 +66,7 @@ contract NFTLottery is ERC721, ERC721Enumerable, Ownable {
 
     constructor(uint256 _ticketPrice) ERC721("LotteryNFT", "lNFT") {
         ticketPrice = _ticketPrice * 1 ether;
+        _tokenIdCounter.increment(); // increment token ID to align with ticket ID
     }
 
     // Function to set the lottery operator
@@ -120,11 +124,19 @@ contract NFTLottery is ERC721, ERC721Enumerable, Ownable {
         inState(State.ACTIVE)
     {
         require(
-            ticketPrice == (msg.value / _noOfTickets),
-            "Insufficient balance"
+            block.timestamp < lotteries[lotteryID].lotteryEndTime,
+            "Lottery has already ended!"
         );
+        require(
+            IERC20(cUsdTokenAddress).transferFrom(
+                msg.sender,
+                address(this),
+                (ticketPrice * _noOfTickets)
+            ),
+            "Transfer failed."
+        );
+        //assign user tickets
         assignTickets(_noOfTickets);
-
         emit TicketsPurchase(msg.sender, lotteryID, _noOfTickets);
     }
 
@@ -133,7 +145,6 @@ contract NFTLottery is ERC721, ERC721Enumerable, Ownable {
         LotteryStruct storage _lottery = lotteries[lotteryID];
         uint256 oldTotal = _lottery.noOfTicketsSold;
         uint256 newTotal = oldTotal + _noOfTickets;
-
         for (uint256 n = oldTotal; n < newTotal; n++) {
             _lottery.ticketOwner[n] = msg.sender;
         }
@@ -141,6 +152,7 @@ contract NFTLottery is ERC721, ERC721Enumerable, Ownable {
         _lottery.amountInLottery += (_noOfTickets * ticketPrice);
     }
 
+    // get winning ticket of the lottery
     function getWinningTickets() external onlyOperator inState(State.ACTIVE) {
         require(
             block.timestamp > lotteries[lotteryID].lotteryEndTime,
@@ -152,9 +164,12 @@ contract NFTLottery is ERC721, ERC721Enumerable, Ownable {
         uint256 winningTicketID = random() % _lottery.noOfTicketsSold;
         _lottery.winningTicket = winningTicketID;
 
+        currentState = State.PAYOUT;
+
         emit LotteryNumberGenerated(lotteryID, winningTicketID);
     }
 
+    // generate a random number using lottery's numberOfTicketSold as seed
     function random() internal view returns (uint256) {
         return
             uint256(
@@ -169,21 +184,45 @@ contract NFTLottery is ERC721, ERC721Enumerable, Ownable {
         // convert hash to integer
     }
 
+    // pay lottery winner
     function payoutWinner() external onlyOperator inState(State.PAYOUT) {
         LotteryStruct storage _lottery = lotteries[lotteryID];
         _lottery.winner = payable(_lottery.ticketOwner[_lottery.winningTicket]);
-
         //Get 50% of rewards and send to winner
         uint256 reward = (_lottery.amountInLottery * 50) / 100;
-        (bool sent, ) = payable(_lottery.winner).call{value: reward}("");
-        require(sent, "Payout unsuccessful");
-
+        require(
+            IERC20(cUsdTokenAddress).transfer(_lottery.winner, reward),
+            "payout unsuccessful"
+        );
         //Mint NFT to winner
         safeMint(_lottery.winner);
-
         currentState = State.IDLE;
-
         emit WinnersAwarded(_lottery.winner, reward);
+    }
+
+    // check price per ticket
+    function checkTicketPrice() public view returns (uint256) {
+        return ticketPrice;
+    }
+
+    // check total funds locked in
+    function checkConractFunds() public view onlyOperator returns (uint256) {
+        uint256 balance = IERC20(cUsdTokenAddress).balanceOf(address(this));
+        return balance;
+    }
+
+    // withdraw total funds left in contract to operator
+    function withdrawContractFunds()
+        public
+        payable
+        onlyOperator
+        inState(State.IDLE) /* can only withdraw after paying out winner*/
+    {
+        uint256 balance = IERC20(cUsdTokenAddress).balanceOf(address(this));
+        require(
+            IERC20(cUsdTokenAddress).transfer(msg.sender, balance),
+            "Unable to withdraw funds"
+        );
     }
 
     //=======================================================================================//
