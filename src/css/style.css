@@ -1,0 +1,212 @@
+* {
+    box-sizing: border-box;
+    font-family: "Raleway", sans-serif;
+    text-rendering: optimizeLegibility;
+    color: #202020;
+  }
+  body {
+    padding: 0;
+    margin: 0;
+  }
+  p {
+    padding: 0;
+    margin: 0;
+  }
+
+  .cover p{
+    color: #fff;
+  }
+
+  :focus-visible {
+    outline: none;
+  }
+
+  .hero {
+    background: #69cc86;
+    background: linear-gradient(153deg, #69cc86 0%, #8dfaae 100%);
+    opacity: 0.92;
+  }
+
+  .container {
+    padding: 0;
+  }
+
+  .header {
+    text-align: center;
+  }
+
+  .light {
+    color: #fff;
+  }
+
+  .center {
+    text-align: center;
+  }
+
+  @media (min-width: 700px) {
+    .container {
+      padding: 0;
+    }
+  }
+
+  @media (min-width: 1000px) {
+    .container {
+      padding: 0;
+    }
+  }
+
+  .title {
+    font-weight: bold;
+    font-size: 3.5rem;
+    padding: 0;
+  }
+
+  .subtitle {
+    font-size: 1.5rem;
+    padding: 0 0 1rem 0;
+  }
+
+  button {
+    border: 0;
+    background: #94ffb4;
+    padding: 0.5rem 3rem;
+    border-radius: 3px;
+    margin: 0.5rem 0;
+    font-size: 1.3rem;
+    cursor: pointer;
+  }
+
+  button:disabled {
+    opacity: 0.6;
+  }
+
+  .field {
+    margin: 0.5rem 0;
+    display: flex;
+    background-color: #f8f8f8;
+    padding: 0;
+    font-size: 1.3rem;
+    overflow: hidden;
+  }
+
+  .label {
+    margin-right: 0.5rem;
+  }
+  input {
+    flex-grow: 1;
+    border: 0;
+    border-bottom: 2px solid #94ffb4;
+    background: transparent;
+    font-size: 1.3rem;
+  }
+
+  #balance {
+    color: #f5cd6f;
+  }
+
+  .tabs-container {
+    width: 100%;
+  }
+
+  .tab {
+    width: 49%;
+  }
+
+  .hidden {
+    display: none !important;
+  }
+
+  .lottery-container {
+    display: flex;
+    flex-direction: column;
+    background-color: #dbffe6;
+    padding: 1rem;
+    border-radius: 8px;
+    overflow: scroll;
+    border-left: 5px solid #69cc86;
+    margin-bottom: 2rem;
+  }
+
+  .lottery-header {
+    display: flex;
+    align-items: center;
+  }
+
+  .lottery-body {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 1rem 0;
+  }
+
+  .lottery-footer {
+    display: flex;
+  }
+
+  .buy-lottery-btn {
+    background-color: #f5cd6f;
+    width: 100%;
+  }
+
+  .declare-winner-lottery-btn {
+    background-color: #f5a06f;
+  }
+
+  #spinner-loading {
+    width: 100vw;
+    height: 100vh;
+    background-color: #0003;
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .lds-dual-ring {
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+  }
+  .lds-dual-ring:after {
+    content: " ";
+    display: block;
+    width: 64px;
+    height: 64px;
+    margin: 8px;
+    border-radius: 50%;
+    border: 6px solid #fff;
+    border-color: #fff transparent #fff transparent;
+    animation: lds-dual-ring 1.2s linear infinite;
+  }
+  @keyframes lds-dual-ring {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  #spinner-label {
+    text-align: center;
+    font-weight: bolder;
+    font-size: 2rem;
+  }
+
+  .rounds-nav {
+    align-items: flex-end;
+    font-size: 2rem;
+    width: 5rem;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .rounds-nav span {
+    cursor: pointer;
+  }
+
+  .rounds-nav a{
+    text-decoration: none;
+  }

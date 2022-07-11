@@ -11,6 +11,7 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@celo-tools/use-contractkit/lib/styles.css";
 import "react-toastify/dist/ReactToastify.min.css";
+import "./css/style.css";
 
 ReactDOM.render(
   <React.StrictMode>
