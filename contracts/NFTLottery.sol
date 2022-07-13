@@ -13,7 +13,7 @@ contract NFTLottery is ERC721, ERC721Enumerable, Ownable {
     uint256 private lotteryID;
     Counters.Counter private _tokenIdCounter;
 
-    uint256 internal immutable lotteryInterval = 2 days;
+    uint256 public lotteryInterval;
     uint256 internal ticketPrice;
     address internal operatorAddress;
     address internal cUsdTokenAddress =
@@ -29,6 +29,7 @@ contract NFTLottery is ERC721, ERC721Enumerable, Ownable {
         uint256 ID; //Lottery ID
         address payable winner; // Winner address
         uint256 noOfTicketsSold; // Tickets sold
+        uint256 noOfPlayers;
         uint256 winningTicket;
         uint256 amountInLottery;
         uint256 lotteryStartTime;
@@ -37,6 +38,8 @@ contract NFTLottery is ERC721, ERC721Enumerable, Ownable {
     }
 
     mapping(uint256 => LotteryStruct) internal lotteries;
+    mapping(address => mapping(uint256 => uint256))
+        internal playerTicketCountPerLotteryID;
 
     // Governs the contract flow, as the three lotteries are ran parallel to each other.
     State public currentState = State.IDLE;
@@ -59,20 +62,46 @@ contract NFTLottery is ERC721, ERC721Enumerable, Ownable {
         uint256 finalNumber
     );
     event WinnersAwarded(address winner, uint256 amount);
+    event NewOperator(address operatorAddress);
+    event WithdrawalComplete(uint256 amount, address operator);
+    event NewLotteryInterval(uint256 interval, string timeUnit);
 
     //=======================================================================================//
 
     //Lottery Section
 
-    constructor(uint256 _ticketPrice) ERC721("LotteryNFT", "lNFT") {
+    constructor(
+        uint256 _ticketPrice,
+        uint256 _lotteryInterval,
+        string memory _timeUnit
+    ) ERC721("LotteryNFT", "lNFT") {
         ticketPrice = _ticketPrice * 1 ether;
+        uint256 unit = checkUnit(_timeUnit); //checks for the unit
+        lotteryInterval = _lotteryInterval * unit;
         _tokenIdCounter.increment(); // increment token ID to align with ticket ID
+    }
+
+    function checkUnit(string memory _unit) internal pure returns (uint256) {
+        uint256 unit;
+        if (keccak256(bytes(_unit)) == keccak256(bytes("seconds"))) {
+            unit = 1 seconds;
+        } else if (keccak256(bytes(_unit)) == keccak256(bytes("minutes"))) {
+            unit = 1 minutes;
+        } else if (keccak256(bytes(_unit)) == keccak256(bytes("hours"))) {
+            unit = 1 hours;
+        } else if (keccak256(bytes(_unit)) == keccak256(bytes("days"))) {
+            unit = 1 days;
+        } else if (keccak256(bytes(_unit)) == keccak256(bytes("weeks"))) {
+            unit = 1 weeks;
+        }
+        return unit;
     }
 
     // Function to set the lottery operator
     function setOperator(address _operatorAddress) external onlyOwner {
         require(_operatorAddress != address(0), "Address must be valid");
         operatorAddress = _operatorAddress;
+        emit NewOperator(operatorAddress);
     }
 
     function getOperator() external view returns (address) {
@@ -156,8 +185,21 @@ contract NFTLottery is ERC721, ERC721Enumerable, Ownable {
         for (uint256 n = oldTotal; n < newTotal; n++) {
             _lottery.ticketOwner[n] = msg.sender;
         }
+        if (playerTicketCountPerLotteryID[msg.sender][lotteryID] < 1) {
+            _lottery.noOfPlayers++;
+        }
+        playerTicketCountPerLotteryID[msg.sender][lotteryID] += _noOfTickets;
         _lottery.noOfTicketsSold += _noOfTickets;
         _lottery.amountInLottery += (_noOfTickets * ticketPrice);
+    }
+
+    //get no of ticket bought
+    function getPlayerTicketCount(address _player, uint256 _lotteryID)
+        external
+        view
+        returns (uint256)
+    {
+        return playerTicketCountPerLotteryID[_player][_lotteryID];
     }
 
     // get winning ticket of the lottery
@@ -231,6 +273,16 @@ contract NFTLottery is ERC721, ERC721Enumerable, Ownable {
             IERC20(cUsdTokenAddress).transfer(msg.sender, balance),
             "Unable to withdraw funds"
         );
+        emit WithdrawalComplete(balance, msg.sender);
+    }
+
+    function updateLotteryInterval(
+        uint256 _lotteryInterval,
+        string memory _timeUnit
+    ) external inState(State.IDLE) onlyOperator {
+        uint256 unit = checkUnit(_timeUnit);
+        lotteryInterval = _lotteryInterval * unit;
+        emit NewLotteryInterval(_lotteryInterval, _timeUnit);
     }
 
     //=======================================================================================//
