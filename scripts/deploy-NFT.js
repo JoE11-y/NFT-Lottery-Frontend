@@ -13,10 +13,11 @@ async function main() {
   // manually to make sure everything is compiled
   // await hre.run('compile');
 
+  // const timeUnits = ["seconds", "minutes", "hours", "days", "weeks"];
+
   const ticketPrice = "2";
   const lotteryInterval = "2";
-  const timeUnits = ["seconds", "minutes", "hours", "days", "weeks"];
-  const timeUnit = timeUnits[2];
+  const timeUnit = "hours";
   const NFTLottery = await hre.ethers.getContractFactory("NFTLottery");
   const deployed = await NFTLottery.deploy(
     ticketPrice,

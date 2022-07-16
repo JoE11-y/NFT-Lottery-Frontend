@@ -4,7 +4,7 @@ import { useContractKit } from "@celo-tools/use-contractkit";
 import { Notification } from "./components/ui/Notifications";
 import Wallet from "./components/Wallet";
 import Cover from "./components/Cover";
-import NFTLottery from "./components/NFTLottery";
+import NFTLottery from "./components/NFTLottery/NFTLottery";
 import { useBalance, useNFTLotteryContract } from "./hooks";
 import "./App.css";
 

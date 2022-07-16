@@ -14,6 +14,7 @@ contract NFTLottery is ERC721, ERC721Enumerable, Ownable {
     Counters.Counter private _tokenIdCounter;
 
     uint256 public lotteryInterval;
+    bool public rolloverStatus;
     uint256 internal ticketPrice;
     address internal operatorAddress;
     address internal cUsdTokenAddress =
@@ -114,7 +115,10 @@ contract NFTLottery is ERC721, ERC721Enumerable, Ownable {
 
     // Starts Lottery
     function startLottery() external inState(State.IDLE) onlyOperator {
-        lotteryID++;
+        // if rollover that particular lotteryID session is restarted
+        if (!rolloverStatus) {
+            lotteryID++;
+        }
         uint256 lotteryStartTime = block.timestamp;
         uint256 lotteryEndTime = lotteryStartTime + lotteryInterval;
 
@@ -124,6 +128,9 @@ contract NFTLottery is ERC721, ERC721Enumerable, Ownable {
         _lottery.ID = lotteryID;
         _lottery.lotteryStartTime = lotteryStartTime;
         _lottery.lotteryEndTime = lotteryEndTime;
+
+        //set rolloverStatus to false;
+        rolloverStatus = false;
 
         emit LotteryStarted(lotteryID, lotteryStartTime, lotteryEndTime);
     }
@@ -210,6 +217,15 @@ contract NFTLottery is ERC721, ERC721Enumerable, Ownable {
         );
 
         LotteryStruct storage _lottery = lotteries[lotteryID];
+
+        //check if the no of Tickets bought and no of players are more than 5 and 2 respectively
+        if (_lottery.noOfTicketsSold < 5 || _lottery.noOfPlayers < 2) {
+            //set rolloverStatus to true and set lotteryState to idle
+            rolloverStatus = true;
+            currentState = State.IDLE;
+            return;
+        }
+
         //generate pseudo random number between 0 and noOfTicketsSold
         uint256 winningTicketID = random() % _lottery.noOfTicketsSold;
         _lottery.winningTicket = winningTicketID;

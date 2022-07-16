@@ -1,3 +1,4 @@
+import BigNumber from "big-number/big-number";
 import NFTLotteryAddress from "../contracts/NFTLotteryAddress.json";
 
 export const setOperator = async (
@@ -37,11 +38,13 @@ export const approve = async (
 ) => {
   try {
     const amount = noOfTickets * ticketPrice;
+    const amountToApprove = new BigNumber(amount);
     await performActions(async (kit) => {
       const { defaultAccount } = kit;
       await IECR20Contract.methods
-        .approve(NFTLotteryAddress, amount)
+        .approve(NFTLotteryAddress.NFTLottery, amountToApprove)
         .send({ from: defaultAccount });
+      return true;
     });
   } catch (e) {
     console.log({ e });
@@ -108,6 +111,23 @@ export const withdrawContractFunds = async (
   }
 };
 
+export const updateLotteryInterval = async (
+  NFTLotteryContract,
+  performActions,
+  { lotteryInterval, timeUnit }
+) => {
+  try {
+    await performActions(async (kit) => {
+      const { defaultAccount } = kit;
+      await NFTLotteryContract.methods
+        .updateLotteryInterval(lotteryInterval, timeUnit)
+        .send({ from: defaultAccount });
+    });
+  } catch (e) {
+    console.log({ e });
+  }
+};
+
 export const getCurrentLotteryID = async (NFTLotteryContract) => {
   try {
     const ID = await NFTLotteryContract.methods.getLotteryID().call();
@@ -156,6 +176,21 @@ export const getLotteryOperator = async (NFTLotteryContract) => {
       .getOperator()
       .call();
     return operatorAddress;
+  } catch (e) {
+    console.log({ e });
+  }
+};
+
+export const getPlayerTicketCount = async (
+  NFTLotteryContract,
+  { address, lotteryID }
+) => {
+  try {
+    const ticketCount = await NFTLotteryContract.methods
+      .getPlayerTicketCount(address, lotteryID)
+      .call();
+
+    return ticketCount;
   } catch (e) {
     console.log({ e });
   }
