@@ -1,6 +1,7 @@
 {
-  "name": "celo-react-boilerplate",
+  "name": "NFT-Lottery-Frontend",
   "version": "0.1.0",
+  "homepage":"https://JoE11-y.github.io/NFT-Lottery-Frontend",
   "private": true,
   "dependencies": {
     "@celo-tools/use-contractkit": "3.0.0-beta2",
@@ -26,12 +27,14 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "compile": "npx hardhat compile",
-    "deploy": "npx hardhat run --network alfajores scripts/deploy.js",
+    "deploy-contract": "npx hardhat run --network alfajores scripts/deploy.js",
     "test-contract": "npx hardhat test"
   },
   "eslintConfig": {
@@ -58,6 +61,7 @@
     "chai": "^4.2.0",
     "ethereum-waffle": "^3.0.0",
     "ethers": "^5.0.0",
+    "gh-pages": "^4.0.0",
     "hardhat": "^2.8.2",
     "react-error-overlay": "^6.0.9"
   }
