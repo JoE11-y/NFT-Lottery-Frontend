@@ -131,3 +131,7 @@ node ./operator/updateLotteryInterval.js --interval {interval} --timeUnit {timeU
 - This command allows the operator to be change the lottery interval, i.e. how long a lottery session can last.
 
 - The value for interval can only be a number/integer, while for the timeUnit can only be in the string format and the accepted values are (seconds, minutes, hours, days and weeks) any other format will result in function failure.
+
+
+#Dev Opinion
+A much better implementation would be to use either oracles or a collab with chainlink to use their keeper service for contract automation
