@@ -15,3 +15,24 @@ export const formatBigNumber = (num) => {
   if (!num) return;
   return num.shiftedBy(-ERC20_DECIMALS).toFixed(2);
 };
+
+export const convertTime = (secs) => {
+  if (secs === 0) {
+    return "--";
+  }
+
+  let dateObj = new Date(secs * 1000);
+
+  let date = dateObj.toLocaleDateString("en-us", {
+    weekday: "short",
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
+  let time = dateObj.toLocaleString("en-us", {
+    hour: "numeric",
+    minute: "numeric",
+    hour12: true,
+  });
+  return date + ", " + time;
+};

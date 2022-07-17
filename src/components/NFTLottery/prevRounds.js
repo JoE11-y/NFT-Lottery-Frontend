@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import { getLottery, getPlayerTicketCount } from "../../utils/NFTLottery";
 import { useContractKit } from "@celo-tools/use-contractkit";
-import { formatBigNumber } from "../../utils";
+import { formatBigNumber, convertTime, truncateAddress } from "../../utils";
 import BigNumber from "bignumber.js";
 
 const PrevRounds = ({ NFTLotteryContract, prevLottery, ticketPrice }) => {
   const { kit } = useContractKit();
   const init = {
     ID: 0,
-    winner: "0x",
+    winner: "0x000000000000000000000000000000000000dEaD",
     noOfTicketsSold: 0,
+    noOfPlayers: 0,
     winningTicket: 0,
     amountInLottery: 0,
     lotteryStartTime: 0,
@@ -81,12 +82,22 @@ const PrevRounds = ({ NFTLotteryContract, prevLottery, ticketPrice }) => {
               </div>
             </div>
             <p>
-              <strong>Winner: {lottery.winner}</strong>
+              <strong>Drawn: </strong> {convertTime(lottery.lotteryEndTime)}
+            </p>
+            <p>
+              <strong>Winner: </strong>
+              <a
+                href={`https://alfajores-blockscout.celo-testnet.org/address/${lottery.winner}/transactions`}
+                target="_blank"
+                rel="noreferrer"
+              >
+                {truncateAddress(lottery.winner)}
+              </a>
             </p>
           </div>
           <div className="lottery-body">
             <p>
-              <strong>Price Per Ticket: </strong>
+              <strong>Price Per Ticket: </strong>{" "}
               {formatBigNumber(new BigNumber(ticketPrice))} cUSD
             </p>
             <p>
@@ -97,7 +108,8 @@ const PrevRounds = ({ NFTLotteryContract, prevLottery, ticketPrice }) => {
               {lottery.noOfPlayers}
             </p>
             <p>
-              <strong>Prize: </strong> 0 cUSD
+              <strong>Prize: </strong>{" "}
+              {formatBigNumber(new BigNumber(lottery.amountInLottery / 2))} cUSD
             </p>
             <p>
               <strong>Your Tickets: </strong>

@@ -94,7 +94,9 @@ const NFTLottery = ({ NFTLotteryContract }) => {
                   {lottery.noOfPlayers}
                 </p>
                 <p>
-                  <strong>Prize: </strong> 0 cUSD
+                  <strong>Prize: </strong>{" "}
+                  {formatBigNumber(new BigNumber(lottery.amountInLottery / 2))}{" "}
+                  cUSD
                 </p>
                 <p>
                   <strong>Your Tickets: </strong>
