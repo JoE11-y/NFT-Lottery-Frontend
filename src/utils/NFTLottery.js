@@ -60,8 +60,9 @@ export const buyTickets = async (
   try {
     await performActions(async (kit) => {
       const { defaultAccount } = kit;
+      console.log(typeof noOfTickets);
       await NFTLotteryContract.methods
-        .buyTicket(noOfTickets)
+        .buyTicket(1)
         .send({ from: defaultAccount });
     });
   } catch (e) {

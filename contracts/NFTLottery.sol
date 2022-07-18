@@ -76,6 +76,7 @@ contract NFTLottery is ERC721, ERC721Enumerable, Ownable {
         uint256 _lotteryInterval,
         string memory _timeUnit
     ) ERC721("LotteryNFT", "lNFT") {
+        operatorAddress = msg.sender;
         ticketPrice = _ticketPrice * 1 ether;
         uint256 unit = checkUnit(_timeUnit); //checks for the unit
         lotteryInterval = _lotteryInterval * unit;
@@ -162,7 +163,11 @@ contract NFTLottery is ERC721, ERC721Enumerable, Ownable {
     }
 
     // BuyTicket Functions
-    function buyTicket(uint256 _noOfTickets) public inState(State.ACTIVE) {
+    function buyTicket(uint256 _noOfTickets)
+        external
+        payable
+        inState(State.ACTIVE)
+    {
         require(
             block.timestamp < lotteries[lotteryID].lotteryEndTime,
             "Lottery has already ended!"
