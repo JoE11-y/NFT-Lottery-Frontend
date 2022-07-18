@@ -162,11 +162,7 @@ contract NFTLottery is ERC721, ERC721Enumerable, Ownable {
     }
 
     // BuyTicket Functions
-    function buyTicket(uint256 _noOfTickets)
-        external
-        payable
-        inState(State.ACTIVE)
-    {
+    function buyTicket(uint256 _noOfTickets) public inState(State.ACTIVE) {
         require(
             block.timestamp < lotteries[lotteryID].lotteryEndTime,
             "Lottery has already ended!"
