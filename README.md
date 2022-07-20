@@ -123,7 +123,7 @@ This command will start a new lottery session
 ### 5.2 Getting the winning ticket
 
 ```bash
-npx ./script/getWinningTickets.js --network alfajores
+npx hardhat run ./script/getWinningTickets.js --network alfajores
 ```
 
 This command gets the winning the ticket for that lottery session, can be only ran once the current lottery session time range has been exhausted.
@@ -131,7 +131,7 @@ This command gets the winning the ticket for that lottery session, can be only r
 ### 5.3 Payout Winner
 
 ```bash
-npx ./script/payoutWinner.js --network alfajores
+npx hardhat run ./script/payoutWinner.js --network alfajores
 ```
 
 This command pays out the winner, after the winning ticket has been gotten. The function also sets the lottery state to idle, meaning a new lottery session can be started.
