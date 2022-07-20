@@ -75,7 +75,7 @@ contract NFTLottery is ERC721, ERC721Enumerable, Ownable {
         uint256 _ticketPrice,
         uint256 _lotteryInterval,
         string memory _timeUnit
-    ) ERC721("LotteryNFT", "lNFT") {
+    ) ERC721("LotteryNFT", "lNFT") isValidTUnit(_timeUnit) {
         operatorAddress = msg.sender;
         ticketPrice = _ticketPrice * 1 ether;
         uint256 unit = checkUnit(_timeUnit); //checks for the unit
@@ -292,7 +292,7 @@ contract NFTLottery is ERC721, ERC721Enumerable, Ownable {
     function updateLotteryInterval(
         uint256 _lotteryInterval,
         string memory _timeUnit
-    ) external inState(State.IDLE) onlyOperator {
+    ) external inState(State.IDLE) onlyOperator isValidTUnit(_timeUnit) {
         uint256 unit = checkUnit(_timeUnit);
         lotteryInterval = _lotteryInterval * unit;
         emit NewLotteryInterval(_lotteryInterval, _timeUnit);
@@ -340,6 +340,26 @@ contract NFTLottery is ERC721, ERC721Enumerable, Ownable {
     }
     modifier inState(State state) {
         require(state == currentState, "current state does not allow this");
+        _;
+    }
+
+    modifier isValidTUnit(string memory _unit) {
+        bool isValid = false;
+        if (keccak256(bytes(_unit)) == keccak256(bytes("seconds"))) {
+            isValid = true;
+        } else if (keccak256(bytes(_unit)) == keccak256(bytes("minutes"))) {
+            isValid = true;
+        } else if (keccak256(bytes(_unit)) == keccak256(bytes("hours"))) {
+            isValid = true;
+        } else if (keccak256(bytes(_unit)) == keccak256(bytes("days"))) {
+            isValid = true;
+        } else if (keccak256(bytes(_unit)) == keccak256(bytes("weeks"))) {
+            isValid = true;
+        }
+        require(
+            isValid,
+            "incorrect timeUnit. Please input one of: seconds, minutes, hours, days or weeks."
+        );
         _;
     }
 }
