@@ -39,6 +39,8 @@ contract NFTLottery is ERC721, ERC721Enumerable, Ownable {
     }
 
     mapping(uint256 => LotteryStruct) internal lotteries;
+
+    // mapping that shows the amount of tickets each player has per lottery
     mapping(address => mapping(uint256 => uint256))
         internal playerTicketCountPerLotteryID;
 
@@ -144,6 +146,7 @@ contract NFTLottery is ERC721, ERC721Enumerable, Ownable {
             uint256 ID,
             address payable winner,
             uint256 noOfTicketsSold,
+            uint256 noOfPlayers,
             uint256 winningTicket,
             uint256 amountInLottery,
             uint256 lotteryStartTime,
@@ -155,6 +158,7 @@ contract NFTLottery is ERC721, ERC721Enumerable, Ownable {
             _lottery.ID,
             _lottery.winner,
             _lottery.noOfTicketsSold,
+            _lottery.noOfPlayers,
             _lottery.winningTicket,
             _lottery.amountInLottery,
             _lottery.lotteryStartTime,
