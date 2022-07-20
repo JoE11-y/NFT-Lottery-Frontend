@@ -3,6 +3,7 @@
 [link to demo](https://joe11-y.github.io/NFT-Lottery-Frontend/)
 
 A simple lottery contract that awards a lucky winner with a minted nft and half of the generated prizepot.
+Lottery is currently set to run every 2 hours as a default.
 
 Check operator section for how to operate lottery.
 
