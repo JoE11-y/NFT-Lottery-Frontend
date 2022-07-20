@@ -3,9 +3,9 @@
 [link to demo](https://joe11-y.github.io/NFT-Lottery-Frontend/)
 
 A simple lottery contract that awards a lucky winner with a minted nft and half of the generated prizepot.
-Lottery is currently set to run every 2 hours as a default.
+Lottery is currently set to run every 2 weeks as a default.
 
-Check operator section for how to operate lottery.
+Check **Operator** and **Updates** sections for how to operate lottery.
 
 
 ## 1. Tech Stack
@@ -74,10 +74,10 @@ You can find more details about the whole process in the Dacade [NFT Contract De
 ### 3.5 Deploy the smart contract to the Celo testnet Aljafores
 
 ```bash
-npx hardhat run --network alfajores scripts/deploy.js
+npx hardhat run --network alfajores scripts/deploy-NFT.js
 ```
 
-This command will update the src/contract files with the deployed smart contract ABI and contract address.
+This command will deploy the contract to the testnet and also initiate the first lottery section, then it updates the src/contract files with the deployed smart contract ABI and contract address.
 
 ## 4. Operator Section
 
@@ -89,33 +89,10 @@ This section contains node-js terminal scripts to be run to control the operatio
 node ./operator/setOperator.js --operatorAddress {your address}
 ```
 
-This command is the first command that should be run after deploying the contract, it sets the operator address giving that address access to functions like starting the lottery and other admin restricted functions.
+This sets the operator address giving that address access to functions like starting the lottery and other admin restricted functions.
 
-### 4.2 Starting the Lottery
 
-```bash
-node ./operator/startLottery.js
-```
-
-This command will start a new lottery session
-
-### 4.3 Getting the winning ticket
-
-```bash
-node ./operator/getWinningTickets.js
-```
-
-This command gets the winning the ticket for that lottery session, can be only ran once the current lottery session time range has been exhausted.
-
-### 4.4 Payout Winner
-
-```bash
-node ./operator/payoutWinner.js
-```
-
-This command pays out the winner, after the winning ticket has been gotten. The function also sets the lottery state to idle, meaning a new lottery session can be started.
-
-### 4.5 Withdraw Contract Funds
+### 4.2 Withdraw Contract Funds
 
 ```bash
 node ./operator/withdrawContractFunds.js 
@@ -123,8 +100,7 @@ node ./operator/withdrawContractFunds.js
 
 This command allows the lottery owner to be able to withdraw his own winnings from the lottery, function can only be called after the has been paid off.
 
-
-### 4.6 Update Lottery Interval
+### 4.3 Update Lottery Interval
 
 ```bash
 node ./operator/updateLotteryInterval.js --interval {interval} --timeUnit {timeUnit}
@@ -132,6 +108,33 @@ node ./operator/updateLotteryInterval.js --interval {interval} --timeUnit {timeU
 - This command allows the operator to be change the lottery interval, i.e. how long a lottery session can last.
 
 - The value for interval can only be a number/integer, while for the timeUnit can only be in the string format and the accepted values are (seconds, minutes, hours, days and weeks) any other format will result in function failure.
+
+## 5. Updates Section
+From the Feedbacks and PRs made by contributors on the dacade platform, some contract optimization has been made and also there's now an option to use Hardhat to perform admin operations on the NFTLottery. 
+
+### 5.1 Starting the Lottery
+
+```bash
+npx hardat run ./script/startLottery.js --network alfajores
+```
+
+This command will start a new lottery session
+
+### 5.2 Getting the winning ticket
+
+```bash
+npx hardhat run ./script/getWinningTickets.js --network alfajores
+```
+
+This command gets the winning the ticket for that lottery session, can be only ran once the current lottery session time range has been exhausted.
+
+### 5.3 Payout Winner
+
+```bash
+npx hardhat run ./script/payoutWinner.js --network alfajores
+```
+
+This command pays out the winner, after the winning ticket has been gotten. The function also sets the lottery state to idle, meaning a new lottery session can be started.
 
 
 ## Dev Opinion
