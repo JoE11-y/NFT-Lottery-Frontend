@@ -34,7 +34,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "compile": "npx hardhat compile",
-    "deploy-contract": "npx hardhat run --network alfajores scripts/deploy.js",
+    "deploy-contract": "npx hardhat run --network alfajores scripts/deploy-NFT.js",
     "test-contract": "npx hardhat test"
   },
   "eslintConfig": {
