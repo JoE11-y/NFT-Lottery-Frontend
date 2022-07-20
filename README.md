@@ -98,7 +98,7 @@ This sets the operator address giving that address access to functions like star
 node ./operator/withdrawContractFunds.js 
 ```
 
-This command allows the lottery owner to be able to withdraw his own winnings from the lottery, function can only be called after the has been paid off.
+This command allows the lottery owner to be able to withdraw his own winnings from the lottery, function can only be called after the winner has been paid.
 
 ### 4.3 Update Lottery Interval
 
