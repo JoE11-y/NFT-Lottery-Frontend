@@ -126,7 +126,7 @@ This command will start a new lottery session
 npx hardhat run ./script/getWinningTickets.js --network alfajores
 ```
 
-This command gets the winning the ticket for that lottery session, can be only ran once the current lottery session time range has been exhausted.
+This command gets the winning the ticket for that lottery session, can be only ran once the current lottery session has ended.
 
 ### 5.3 Payout Winner
 
