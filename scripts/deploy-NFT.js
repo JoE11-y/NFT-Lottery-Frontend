@@ -18,7 +18,13 @@ async function main() {
   const ticketPrice = "2";
   const lotteryInterval = "2";
   const timeUnit = "weeks";
+
+  console.log("Getting Contract");
+
   const NFTLotteryFactory = await hre.ethers.getContractFactory("NFTLottery");
+
+  console.log("Deploying Contract to Alfajores testnet");
+
   const NFTLotteryContract = await NFTLotteryFactory.deploy(
     ticketPrice,
     lotteryInterval,
@@ -32,8 +38,11 @@ async function main() {
   const startTxn = await NFTLotteryContract.startLottery();
   await startTxn.wait();
 
-  console.log("Lottery started");
+  const transactionHash = `https://alfajores-blockscout.celo-testnet.org/tx/${startTxn.hash}/internal-transactions`;
 
+  console.log("Lottery started:");
+
+  console.log("Transaction Hash: ", { transactionHash });
 
   storeContractData(NFTLotteryContract);
 }
