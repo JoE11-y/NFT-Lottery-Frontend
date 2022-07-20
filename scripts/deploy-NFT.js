@@ -17,18 +17,25 @@ async function main() {
 
   const ticketPrice = "2";
   const lotteryInterval = "2";
-  const timeUnit = "hours";
-  const NFTLottery = await hre.ethers.getContractFactory("NFTLottery");
-  const deployed = await NFTLottery.deploy(
+  const timeUnit = "weeks";
+  const NFTLotteryFactory = await hre.ethers.getContractFactory("NFTLottery");
+  const NFTLotteryContract = await NFTLotteryFactory.deploy(
     ticketPrice,
     lotteryInterval,
     timeUnit
   );
 
-  await deployed.deployed();
+  await NFTLotteryContract.deployed();
 
-  console.log("Contract deployed to:", deployed.address);
-  storeContractData(deployed);
+  console.log("Contract deployed to:", NFTLotteryContract.address);
+
+  const startTxn = await NFTLotteryContract.startLottery();
+  await startTxn.wait();
+
+  console.log("Lottery started");
+
+
+  storeContractData(NFTLotteryContract);
 }
 
 function storeContractData(contract) {
