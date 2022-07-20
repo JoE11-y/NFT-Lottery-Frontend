@@ -12,6 +12,7 @@ import PrevRounds from "./prevRounds";
 import BuyTicketForm from "./buyTicketForm";
 import BigNumber from "bignumber.js";
 import Loader from "../ui/Loader";
+import { convertTime } from "../../utils";
 
 const NFTLottery = ({ NFTLotteryContract }) => {
   const { kit } = useContractKit();
@@ -76,7 +77,8 @@ const NFTLottery = ({ NFTLotteryContract }) => {
                     <strong>ID: </strong> {lottery.ID}
                   </p>
                   <p>
-                    <strong>Lottery Ends In: </strong> {lottery.lotteryEndTime}
+                    <strong>Lottery Ends In: </strong>{" "}
+                    {convertTime(lottery.lotteryEndTime)}
                   </p>
                 </div>
               </div>
