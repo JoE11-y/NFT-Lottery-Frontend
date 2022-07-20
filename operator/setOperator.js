@@ -1,6 +1,12 @@
 const setup = require("./setup");
+var parseArgs = require("minimist");
 
+// "node ./operator/setOperator.js --operatorAddress 0xf3a7050c41c7C8e06Ec82FCAffBE62bfE8D84D96"
 async function main() {
+  const args = parseArgs(process.argv.slice(2), {
+    string: ["operatorAddress"],
+  });
+
   console.log("Initialising................................");
   const contract = setup.getContract();
   const kit = setup.getKit();
@@ -9,7 +15,7 @@ async function main() {
   console.log(
     "Sending Transaction to Alfajores Testnet................................"
   );
-  const tx = await contract.methods.payoutWinner().send({
+  const tx = await contract.methods.setOperator(args.operatorAddress).send({
     from: defaultAccount,
     gas: 200000, // surplus gas will be returned to the sender
     nonce: nonce,
