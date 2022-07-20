@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/NFT-Lottery-Frontend/static/css/main.35804023.chunk.css",
-    "main.js": "/NFT-Lottery-Frontend/static/js/main.427f2c2c.chunk.js",
-    "main.js.map": "/NFT-Lottery-Frontend/static/js/main.427f2c2c.chunk.js.map",
+    "main.js": "/NFT-Lottery-Frontend/static/js/main.c8bcd84d.chunk.js",
+    "main.js.map": "/NFT-Lottery-Frontend/static/js/main.c8bcd84d.chunk.js.map",
     "runtime-main.js": "/NFT-Lottery-Frontend/static/js/runtime-main.bf857b22.js",
     "runtime-main.js.map": "/NFT-Lottery-Frontend/static/js/runtime-main.bf857b22.js.map",
     "static/css/2.5f79c87f.chunk.css": "/NFT-Lottery-Frontend/static/css/2.5f79c87f.chunk.css",
@@ -22,6 +22,6 @@
     "static/css/2.5f79c87f.chunk.css",
     "static/js/2.395a532a.chunk.js",
     "static/css/main.35804023.chunk.css",
-    "static/js/main.427f2c2c.chunk.js"
+    "static/js/main.c8bcd84d.chunk.js"
   ]
 }
