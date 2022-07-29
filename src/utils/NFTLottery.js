@@ -1,5 +1,10 @@
-import BigNumber from "big-number/big-number";
+import BigNumber from "bignumber.js";
 import NFTLotteryAddress from "../contracts/NFTLotteryAddress.json";
+import {
+  NotificationSuccess,
+  NotificationError,
+} from "../components/ui/Notifications";
+import { toast } from "react-toastify";
 
 export const setOperator = async (
   NFTLotteryContract,
@@ -44,10 +49,13 @@ export const approve = async (
       await IECR20Contract.methods
         .approve(NFTLotteryAddress.NFTLottery, amountToApprove)
         .send({ from: defaultAccount });
-      return true;
+      toast(<NotificationSuccess text="Contract Approved...." />);
     });
+    return true;
   } catch (e) {
+    toast(<NotificationError text="Please Approve Contract to continue." />);
     console.log({ e });
+    return false;
   }
 };
 
@@ -64,7 +72,9 @@ export const buyTickets = async (
         .buyTicket(noOfTickets)
         .send({ from: defaultAccount });
     });
+    toast(<NotificationSuccess text="Ticket(s) Bought successfully" />);
   } catch (e) {
+    toast(<NotificationError text="Ticket(s) Purchase failed." />);
     console.log({ e });
   }
 };
