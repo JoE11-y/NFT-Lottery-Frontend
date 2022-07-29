@@ -43,7 +43,7 @@ export const approve = async (
 ) => {
   try {
     const amount = noOfTickets * ticketPrice;
-    const amountToApprove = new BigNumber(amount);
+    const amountToApprove = new BigNumber(amount).toString();
     await performActions(async (kit) => {
       const { defaultAccount } = kit;
       await IECR20Contract.methods
