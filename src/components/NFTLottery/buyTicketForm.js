@@ -17,15 +17,13 @@ const BuyTicketForm = ({ NFTLotteryContract, ticketPrice, open, onClose }) => {
   };
 
   async function _buyTicket() {
-    let approved = true;
-
+    let approved;
     try {
-      await approve(IECR20Contract, performActions, {
+      approved = await approve(IECR20Contract, performActions, {
         noOfTickets,
         ticketPrice,
       });
     } catch (error) {
-      approved = false;
       console.log({ error });
     }
     if (approved) {
