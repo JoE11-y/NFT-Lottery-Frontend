@@ -98,7 +98,7 @@ This sets the operator address giving that address access to functions like star
 node ./operator/withdrawContractFunds.js 
 ```
 
-This command allows the lottery owner to be able to withdraw his own winnings from the lottery, function can only be called after the has been paid off.
+This command allows the lottery owner to be able to withdraw his own winnings from the lottery, function can only be called after the winner has been paid.
 
 ### 4.3 Update Lottery Interval
 
@@ -126,7 +126,7 @@ This command will start a new lottery session
 npx hardhat run ./script/getWinningTickets.js --network alfajores
 ```
 
-This command gets the winning the ticket for that lottery session, can be only ran once the current lottery session time range has been exhausted.
+This command gets the winning the ticket for that lottery session, can be only ran once the current lottery session has ended.
 
 ### 5.3 Payout Winner
 
