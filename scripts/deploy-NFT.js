@@ -4,6 +4,7 @@
 // When running the script with `npx hardhat run <script>` you'll find the Hardhat
 // Runtime Environment's members available in the global scope.
 const hre = require("hardhat");
+const { BigNumber } = require("ethers");
 
 async function main() {
   // Hardhat always runs the compile task when running scripts with its command
@@ -15,9 +16,9 @@ async function main() {
 
   // const timeUnits = ["seconds", "minutes", "hours", "days", "weeks"];
 
-  const ticketPrice = "2";
-  const lotteryInterval = "2";
-  const timeUnit = "weeks";
+  const ticketPrice = "1";
+  const lotteryInterval = "1";
+  const timeUnit = "hours";
 
   console.log("Getting Contract");
 
