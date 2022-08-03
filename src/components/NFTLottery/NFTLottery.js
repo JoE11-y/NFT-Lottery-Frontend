@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Button } from "react-bootstrap";
 import {
   getLottery,
@@ -16,36 +16,34 @@ import { convertTime } from "../../utils";
 
 const NFTLottery = ({ NFTLotteryContract }) => {
   const { kit } = useContractKit();
+  const address = kit.defaultAccount;
   const [loading, setLoading] = useState(false);
   const [lottery, setLottery] = useState({});
   const [prevLottery, setPrevLottery] = useState({});
   const [ticketPrice, setTicketPrice] = useState(0);
   const [playerTickets, setPlayerTicket] = useState(0);
+  const [previousLotteryPlayerTickets, setPreviousLotteryPlayerTickets] =
+    useState(0);
   const [open, openModal] = useState(false);
 
-  useEffect(() => {
-    try {
-      if (NFTLotteryContract) {
-        updateLottery();
-      }
-    } catch (error) {
-      console.log({ error });
-    }
-  }, [NFTLotteryContract, getLottery]);
-
-  const updateLottery = async () => {
+  const updateLottery = useCallback(async () => {
     try {
       setLoading(true);
       const lotteryID = await getCurrentLotteryID(NFTLotteryContract);
-      if (lotteryID > 2) {
-        const prevLotteryID = lotteryID - 1;
+      if (lotteryID > 1) {
+        var prevLotteryID = Number(lotteryID) - 1;
+        prevLotteryID = prevLotteryID.toString();
         const prevLottery = await getLottery(NFTLotteryContract, {
-          prevLotteryID,
+          lotteryID: prevLotteryID,
+        });
+        const _playerTickets = await getPlayerTicketCount(NFTLotteryContract, {
+          address,
+          lotteryID: prevLotteryID,
         });
         setPrevLottery(prevLottery);
+        setPreviousLotteryPlayerTickets(_playerTickets);
       }
 
-      const address = kit.defaultAccount;
       const _lottery = await getLottery(NFTLotteryContract, { lotteryID });
       const _ticketPrice = await checkTicketPrice(NFTLotteryContract);
       const _playerTickets = await getPlayerTicketCount(NFTLotteryContract, {
@@ -61,7 +59,18 @@ const NFTLottery = ({ NFTLotteryContract }) => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [NFTLotteryContract, address]);
+
+  useEffect(() => {
+    try {
+      if (NFTLotteryContract) {
+        updateLottery();
+      }
+    } catch (error) {
+      console.log({ error });
+    }
+  }, [NFTLotteryContract, updateLottery]);
+
   return (
     <>
       {!loading ? (
@@ -121,6 +130,7 @@ const NFTLottery = ({ NFTLotteryContract }) => {
             NFTLotteryContract={NFTLotteryContract}
             prevLottery={prevLottery}
             ticketPrice={ticketPrice}
+            previousLotteryPlayerTickets={previousLotteryPlayerTickets}
           />
         </>
       ) : (

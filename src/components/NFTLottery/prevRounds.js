@@ -4,7 +4,12 @@ import { useContractKit } from "@celo-tools/use-contractkit";
 import { formatBigNumber, convertTime, truncateAddress } from "../../utils";
 import BigNumber from "bignumber.js";
 
-const PrevRounds = ({ NFTLotteryContract, prevLottery, ticketPrice }) => {
+const PrevRounds = ({
+  NFTLotteryContract,
+  prevLottery,
+  ticketPrice,
+  previousLotteryPlayerTickets,
+}) => {
   const { kit } = useContractKit();
   const init = {
     ID: 0,
@@ -17,13 +22,15 @@ const PrevRounds = ({ NFTLotteryContract, prevLottery, ticketPrice }) => {
     lotteryEndTime: 0,
   };
 
-  const _lottery = prevLottery.ID ? prevLottery : init;
+  const _lottery = prevLottery ? prevLottery : init;
 
   const [lotteryId, setLotteryID] = useState(_lottery.ID);
 
   const [lottery, setLottery] = useState(_lottery);
 
-  const [playerTickets, setPlayerTicket] = useState(0);
+  const [playerTickets, setPlayerTicket] = useState(
+    previousLotteryPlayerTickets
+  );
 
   const previousLottery = async (e) => {
     e.preventDefault();
