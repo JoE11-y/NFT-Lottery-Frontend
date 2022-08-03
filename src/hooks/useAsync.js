@@ -59,9 +59,13 @@ export const useAsync = (asyncFunction, immediate = true) => {
   // Otherwise execute can be called later, such as
   // in an onClick handler.
   useEffect(() => {
-    if (immediate) {
+    let status = immediate;
+    if (status) {
       execute();
     }
+    return () => {
+      status = false;
+    };
   }, [execute, immediate]);
 
   return { execute, status, value, error };
