@@ -128,6 +128,7 @@ const NFTLottery = ({ NFTLotteryContract }) => {
       )}
       {open && (
         <BuyTicketForm
+          updateLottery={updateLottery}
           NFTLotteryContract={NFTLotteryContract}
           ticketPrice={ticketPrice}
           open={open}

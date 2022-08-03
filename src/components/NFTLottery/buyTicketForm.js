@@ -7,7 +7,13 @@ import { useIERC20Contract } from "../../hooks";
 import { formatBigNumber } from "../../utils";
 import BigNumber from "bignumber.js";
 
-const BuyTicketForm = ({ NFTLotteryContract, ticketPrice, open, onClose }) => {
+const BuyTicketForm = ({
+  updateLottery,
+  NFTLotteryContract,
+  ticketPrice,
+  open,
+  onClose,
+}) => {
   const { performActions } = useContractKit();
   const [amount, setAmount] = useState(0);
   const [noOfTickets, setTicketNumber] = useState(0);
@@ -30,6 +36,7 @@ const BuyTicketForm = ({ NFTLotteryContract, ticketPrice, open, onClose }) => {
       try {
         //after approval
         await buyTickets(NFTLotteryContract, performActions, { noOfTickets });
+        await updateLottery();
       } catch (error) {
         console.log({ error });
       }
