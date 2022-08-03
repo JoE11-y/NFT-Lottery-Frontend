@@ -137,7 +137,7 @@ npx hardhat run ./script/payoutWinner.js --network alfajores
 This command pays out the winner, after the winning ticket has been gotten. The function also sets the lottery state to idle, meaning a new lottery session can be started.
 
 ### 5.4 Example
-![scripts example](./scripts/Example.png?raw=true "Example")
+![scripts example](./scripts/Example.png)
 
 ## Dev Opinion
 A much better implementation would be to use either oracles or a collab with chainlink to use their keeper service for contract automation
