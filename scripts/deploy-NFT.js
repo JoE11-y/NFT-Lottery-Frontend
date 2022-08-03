@@ -17,8 +17,9 @@ async function main() {
   // const timeUnits = ["seconds", "minutes", "hours", "days", "weeks"];
 
   const ticketPrice = "1";
-  const lotteryInterval = "1";
-  const timeUnit = "hours";
+  const lotteryInterval = "30";
+  const timeUnit = "minutes";
+  const decimal = "1";
 
   console.log("Getting Contract");
 
@@ -28,6 +29,7 @@ async function main() {
 
   const NFTLotteryContract = await NFTLotteryFactory.deploy(
     ticketPrice,
+    decimal,
     lotteryInterval,
     timeUnit
   );

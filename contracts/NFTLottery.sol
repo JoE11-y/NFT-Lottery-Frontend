@@ -75,11 +75,13 @@ contract NFTLottery is ERC721, ERC721Enumerable, Ownable {
 
     constructor(
         uint256 _ticketPrice,
+        uint256 _decimal,
         uint256 _lotteryInterval,
         string memory _timeUnit
     ) ERC721("LotteryNFT", "lNFT") isValidTUnit(_timeUnit) {
         operatorAddress = msg.sender;
-        ticketPrice = _ticketPrice * 1 ether;
+        uint256 decimals = 10**_decimal;
+        ticketPrice = (_ticketPrice * 1 ether) / decimals;
         uint256 unit = checkUnit(_timeUnit); //checks for the unit
         lotteryInterval = _lotteryInterval * unit;
         _tokenIdCounter.increment(); // increment token ID to align with ticket ID
@@ -242,7 +244,7 @@ contract NFTLottery is ERC721, ERC721Enumerable, Ownable {
             uint256(
                 keccak256(
                     abi.encodePacked(
-                        block.difficulty,
+                        block.number,
                         block.timestamp,
                         lotteries[lotteryID].noOfTicketsSold
                     )
