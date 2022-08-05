@@ -143,4 +143,4 @@ This command pays out the winner, after the winning ticket has been gotten. The 
 ![scripts example](./scripts/Example.png)
 
 ## Dev Opinion
-A much better implementation would be to use either oracles or a collab with chainlink to use their keeper service for contract automation
+A much better implementation would be to use either oracles or a collab with chainlink to use their [keeper service](https://docs.chain.link/docs/chainlink-keepers/introduction/) for contract automation and also the generation of a random number which is currently not safe when done on chain as this cen be very deterministic , the use of [chainlink vrf](https://docs.chain.link/docs/chainlink-vrf/) would be ideal. so looking forward to a collab with the celo team and the chainlink team to implement this.
