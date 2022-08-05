@@ -136,7 +136,10 @@ npx hardhat run ./script/payoutWinner.js --network alfajores
 
 This command pays out the winner, after the winning ticket has been gotten. The function also sets the lottery state to idle, meaning a new lottery session can be started.
 
-### 5.4 Example
+### 5.4 Example Scenarios
+- When the Lottery runs successfully.
+![scripts example](./scripts/Example2.png)
+- When the Lottery ends without meeting the required number of players or tickets. This is currently set to minimum of 2 players and 5 tickets;
 ![scripts example](./scripts/Example.png)
 
 ## Dev Opinion
